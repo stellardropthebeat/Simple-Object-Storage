@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compose-worker
+  labels:
+    app: compose-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-worker
+  template:
+    metadata:
+      labels:
+        app: compose-worker
+    spec:
+      containers:
+      - name: compose-worker
+        image: ghcr.io/cs-muic/scalable-p2-scalable-t3-bbq/compose-worker:latest
+        command: ['celery', '--app', 'compose', 'worker', '-l', 'INFO' , '--queues', 'q02']
+        env:
+          - name: CELERY_BROKER_URL
+            value: redis://redis:6379/0
+          - name: CELERY_RESULT_BACKEND
+            value: db+postgresql://dbc:dbc@postgres:5432/celery
+          - name: MINIO_URL
+            value: minio:9000
+          - name: MINIO_ACCESS_KEY
+            value: admin
+          - name: MINIO_SECRET_KEY
+            value: password
+      imagePullSecrets:
+        - name: myregistrykey

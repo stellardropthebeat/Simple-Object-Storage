@@ -1,0 +1,94 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: p2-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /convert
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /convert-bucket
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /list-gif
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /track
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /controller
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /display
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /make-bucket
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /list-buckets
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /put-video
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /delete-all
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
+      - path: /delete
+        pathType: Exact
+        backend:
+          service:
+            name: controller
+            port:
+              number: 80
